@@ -1,7 +1,7 @@
 # Authenticators
 
 The [Authenticator][] is the mechanism for authorizing users to use the
-Hub and single user notebook servers.
+Hub and single-user servers.
 
 ## The default PAM Authenticator
 

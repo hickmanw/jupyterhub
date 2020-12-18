@@ -46,7 +46,7 @@ from .. import orm
 from ..app import JupyterHub
 from ..auth import PAMAuthenticator
 from ..objects import Server
-from ..singleuser import SingleUserNotebookApp
+from ..singleuser import SingleUserApp
 from ..spawner import LocalProcessSpawner
 from ..spawner import SimpleLocalProcessSpawner
 from ..utils import random_port
@@ -372,7 +372,7 @@ class MockHub(JupyterHub):
 # single-user-server mocking:
 
 
-class MockSingleUserServer(SingleUserNotebookApp):
+class MockSingleUserServer(SingleUserApp):
     """Mock-out problematic parts of single-user server when run in a thread
 
     Currently:

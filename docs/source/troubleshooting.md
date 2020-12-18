@@ -106,13 +106,13 @@ sudo MY_ENV=abc123 \
   /srv/jupyterhub/jupyterhub
 ```
 
-### How can I view the logs for JupyterHub or the user's Notebook servers when using the DockerSpawner?
+### How can I view the logs for JupyterHub or the user's single-user servers when using the DockerSpawner?
 
 Use `docker logs <container>` where `<container>` is the container name defined within `docker-compose.yml`.  For example, to view the logs of the JupyterHub container use:
 
     docker logs hub
 
-By default, the user's notebook server is named `jupyter-<username>` where `username` is the user's username within JupyterHub's db. So if you wanted to see the logs for user `foo` you would use:
+By default, the user's single-user server is named `jupyter-<username>` where `username` is the user's username within JupyterHub's db. So if you wanted to see the logs for user `foo` you would use:
 
     docker logs jupyter-foo
 
@@ -138,8 +138,8 @@ There are two likely reasons for this:
 
 The main symptom is a failure to load *any* page served by the single-user
 server, met with a 500 error. This is typically the first page at `/user/<your_name>`
-after logging in or clicking "Start my server". When a single-user notebook server
-receives a request, the notebook server makes an API request to the Hub to
+after logging in or clicking "Start my server". When a single-user server
+receives a request, the single-user server makes an API request to the Hub to
 check if the cookie corresponds to the right user. This request is logged.
 
 If everything is working, the response logged will be similar to this:
@@ -149,8 +149,8 @@ If everything is working, the response logged will be similar to this:
 ```
 
 You should see a similar 200 message, as above, in the Hub log when you first
-visit your single-user notebook server. If you don't see this message in the log, it
-may mean that your single-user notebook server isn't connecting to your Hub.
+visit your single-user server. If you don't see this message in the log, it
+may mean that your single-user server isn't connecting to your Hub.
 
 If you see 403 (forbidden) like this, it's likely a token problem:
 
@@ -158,7 +158,7 @@ If you see 403 (forbidden) like this, it's likely a token problem:
 403 GET /hub/api/authorizations/cookie/jupyterhub-token-name/[secret] (@10.0.1.4) 4.14ms
 ```
 
-Check the logs of the single-user notebook server, which may have more detailed
+Check the logs of the single-user server, which may have more detailed
 information on the cause.
 
 #### Causes and resolutions
@@ -320,12 +320,12 @@ For instance:
     jupyter serverextension enable --py jupyterlab --sys-prefix
 
 The important thing is that jupyterlab is installed and enabled in the
-single-user notebook server environment. For system users, this means
+single-user server environment. For system users, this means
 system-wide, as indicated above. For Docker containers, it means inside
 the single-user docker image, etc.
 
 In `jupyterhub_config.py`, configure the Spawner to tell the single-user
-notebook servers to default to JupyterLab:
+servers to default to JupyterLab:
 
     c.Spawner.default_url = '/lab'
 
@@ -410,8 +410,8 @@ to a python two installation (e.g. /usr/bin/python).
 
 Docker images can be found at the [JupyterHub organization on DockerHub](https://hub.docker.com/u/jupyterhub/).
 The Docker image [jupyterhub/singleuser](https://hub.docker.com/r/jupyterhub/singleuser/)
-provides an example single user notebook server for use with DockerSpawner.
+provides an example single-user server for use with DockerSpawner.
 
-Additional single user notebook server images can be found at the [Jupyter
+Additional single-user server images can be found at the [Jupyter
 organization on DockerHub](https://hub.docker.com/r/jupyter/) and information
 about each image at the [jupyter/docker-stacks repo](https://github.com/jupyter/docker-stacks).

@@ -33,7 +33,7 @@ Before installing JupyterHub, you will need:
 - TLS certificate and key for HTTPS communication
 - Domain name
 
-Before running the single-user notebook servers (which may be on the same
+Before running the single-user servers (which may be on the same
 system as the Hub or not), you will need:
 
 - [Jupyter Notebook](https://jupyter.readthedocs.io/en/latest/install.html)
@@ -48,14 +48,14 @@ JupyterHub can be installed with `pip` (and the proxy with `npm`) or `conda`:
 ```bash
 python3 -m pip install jupyterhub
 npm install -g configurable-http-proxy
-python3 -m pip install notebook  # needed if running the notebook servers locally
+python3 -m pip install notebook  # needed if running the single-user servers locally
 ```
 
 **conda** (one command installs jupyterhub and proxy):
 
 ```bash
 conda install -c conda-forge jupyterhub  # installs jupyterhub and proxy
-conda install notebook  # needed if running the notebook servers locally
+conda install notebook  # needed if running the single-user servers locally
 ```
 
 Test your installation. If installed, these commands should return the packages'

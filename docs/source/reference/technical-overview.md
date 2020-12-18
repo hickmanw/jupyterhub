@@ -2,7 +2,7 @@
 
 The **Technical Overview** section gives you a high-level view of:
 
-- JupyterHub's Subsystems: Hub, Proxy, Single-User Notebook Server
+- JupyterHub's Subsystems: Hub, Proxy, Single-User Server
 - how the subsystems interact
 - the process from JupyterHub access to user login
 - JupyterHub's default behavior
@@ -11,23 +11,23 @@ The **Technical Overview** section gives you a high-level view of:
 The goal of this section is to share a deeper technical understanding of
 JupyterHub and how it works.
 
-## The Subsystems: Hub, Proxy, Single-User Notebook Server
+## The Subsystems: Hub, Proxy, Single-User Server
 
-JupyterHub is a set of processes that together provide a single user Jupyter
-Notebook server for each person in a group. Three major subsystems are started
+JupyterHub is a set of processes that together provide a single-user Jupyter
+server for each person in a group. Three major subsystems are started
 by the `jupyterhub` command line program:
 
 - **Hub** (Python/Tornado): manages user accounts, authentication, and
-  coordinates Single User Notebook Servers using a Spawner.
+  coordinates Single-User Servers using a Spawner.
 
 - **Proxy**: the public facing part of JupyterHub that uses a dynamic proxy
-  to route HTTP requests to the Hub and Single User Notebook Servers.
+  to route HTTP requests to the Hub and Single-User Servers.
   [configurable http proxy](https://github.com/jupyterhub/configurable-http-proxy)
   (node-http-proxy) is the default proxy.
 
-- **Single-User Notebook Server** (Python/Tornado): a dedicated,
-  single-user, Jupyter Notebook server is started for each user on the system
-  when the user logs in. The object that starts the single-user notebook
+- **Single-User Server** (Python/Tornado): a dedicated,
+  single-user, Jupyter server is started for each user on the system
+  when the user logs in. The object that starts the single-user
   servers is called a **Spawner**.
 
 ![JupyterHub subsystems](../images/jhub-parts.png)
@@ -41,7 +41,7 @@ The basic principles of operation are:
 
 - The Hub spawns the proxy (in the default JupyterHub configuration)
 - The proxy forwards all requests to the Hub by default
-- The Hub handles login, and spawns single-user notebook servers on demand
+- The Hub handles login, and spawns single-user servers on demand
 - The Hub configures the proxy to forward url prefixes to single-user notebook
   servers
 
@@ -57,8 +57,8 @@ allow users to sign in with e.g. a GitHub account, or with any single-sign-on
 system your organization has.
 
 Next, **[spawners](./spawners.md)** control how JupyterHub starts
-the individual notebook server for each user. The default spawner will
-start a notebook server on the same machine running under their system username.
+the single-user server for each user. The default spawner will
+start a single-user server on the same machine running under their system username.
 The other main option is to start each server in a separate container, often
 using Docker.
 
@@ -69,14 +69,14 @@ When a user accesses JupyterHub, the following events take place:
 - Login data is handed to the [Authenticator](./authenticators.md) instance for
   validation
 - The Authenticator returns the username if the login information is valid
-- A single-user notebook server instance is [spawned](./spawners.md) for the
+- A single-user server instance is [spawned](./spawners.md) for the
   logged-in user
-- When the single-user notebook server starts, the proxy is notified to forward
-  requests to `/user/[username]/*` to the single-user notebook server.
+- When the single-user server starts, the proxy is notified to forward
+  requests to `/user/[username]/*` to the single-user server.
 - A cookie is set on `/hub/`, containing an encrypted token. (Prior to version
   0.8, a cookie for `/user/[username]` was used too.)
 - The browser is redirected to `/user/[username]`, and the request is handled by
-  the single-user notebook server.
+  the single-user server.
 
 The single-user server identifies the user with the Hub via OAuth:
 
@@ -96,7 +96,7 @@ Thus you can reach JupyterHub through either:
 - or any other public IP or domain pointing to your system.
 
 In their default configuration, the other services, the **Hub** and
-**Single-User Notebook Servers**, all communicate with each other on localhost
+**Single-User Servers**, all communicate with each other on localhost
 only.
 
 By default, starting JupyterHub will write two files to disk in the current
@@ -123,7 +123,7 @@ all security and runtime files.
 There are two basic extension points for JupyterHub:
 
 - How users are authenticated by [Authenticators](./authenticators.md)
-- How user's single-user notebook server processes are started by
+- How user's single-user server processes are started by
   [Spawners](./spawners.md)
 
 Each is governed by a customizable class, and JupyterHub ships with basic

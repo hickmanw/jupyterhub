@@ -15,7 +15,7 @@ such as:
 
 - checking which users are active
 - adding or removing users
-- stopping or starting single user notebook servers
+- stopping or starting single-user servers
 - authenticating services
 
 A [REST](https://en.wikipedia.org/wiki/Representational_state_transfer)
@@ -102,7 +102,7 @@ c.JupyterHub.services = [
 
 The token will have the same admin permissions,
 but there will no longer be a user account created to house it.
-The main noticeable difference is that there will be no notebook server associated with the account
+The main noticeable difference is that there will be no single-user server associated with the account
 and the service will not show up in the various user list pages and APIs.
 
 ## Make an API request
@@ -153,7 +153,7 @@ r.json()
 ```
 
 The same API token can also authorize access to the [Jupyter Notebook REST API][]
-provided by notebook servers managed by JupyterHub if one of the following is true:
+provided by single-user servers managed by JupyterHub if one of the following is true:
 
 1. The token is for the same user as the owner of the notebook
 2. The token is tied to an admin user or service **and** `c.JupyterHub.admin_access` is set to `True`

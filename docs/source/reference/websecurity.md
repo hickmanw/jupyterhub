@@ -33,14 +33,14 @@ servers) as a single website (i.e. single domain).
 To protect users from each other, a user must **never** be able to write arbitrary
 HTML and serve it to another user on the Hub's domain. JupyterHub's
 authentication setup prevents a user writing arbitrary HTML and serving it to
-another user because only the owner of a given single-user notebook server is
+another user because only the owner of a given single-user server is
 allowed to view user-authored pages served by the given single-user notebook
 server.
 
 To protect all users from each other, JupyterHub administrators must
 ensure that:
 
-* A user **does not have permission** to modify their single-user notebook server,
+* A user **does not have permission** to modify their single-user server,
   including:
   - A user **may not** install new packages in the Python environment that runs
     their single-user server.
@@ -49,7 +49,7 @@ ensure that:
     directory that precedes the directory containing `jupyterhub-singleuser`.
   - A user may not modify environment variables (e.g. PATH, PYTHONPATH) for
     their single-user server.
-* A user **may not** modify the configuration of the notebook server
+* A user **may not** modify the configuration of the single-user server
   (the `~/.jupyter` or `JUPYTER_CONFIG_DIR` directory).
 
 If any additional services are run on the same domain as the Hub, the services

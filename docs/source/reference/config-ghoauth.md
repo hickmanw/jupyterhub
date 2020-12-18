@@ -61,7 +61,7 @@ c.Authenticator.admin_users = {'jhamrick', 'rgbkrk'}
 # configuration.
 # c.JupyterHub.spawner_class = 'sudospawner.SudoSpawner'
 
-# start single-user notebook servers in ~/assignments,
+# start single-user servers in ~/assignments,
 # with ~/assignments/Welcome.ipynb as the default landing page
 # this config could also be put in
 # /etc/jupyter/jupyter_notebook_config.py

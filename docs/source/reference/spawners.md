@@ -1,6 +1,6 @@
 # Spawners
 
-A [Spawner][] starts each single-user notebook server.
+A [Spawner][] starts each single-user server.
 The Spawner represents an abstract interface to a process,
 and a custom Spawner needs to be able to take three actions:
 
@@ -84,7 +84,7 @@ to check if the local process is still running. On Windows, it uses `psutil.pid_
 ## Spawner state
 
 JupyterHub should be able to stop and restart without tearing down
-single-user notebook servers. To do this task, a Spawner may need to persist
+single-user servers. To do this task, a Spawner may need to persist
 some information that can be restored later.
 A JSON-able dictionary of state can be used to store persisted information.
 
@@ -215,7 +215,7 @@ via `jupyterhub --generate-config`.
 
 ## Spawners, resource limits, and guarantees (Optional)
 
-Some spawners of the single-user notebook servers allow setting limits or
+Some spawners of the single-user servers allow setting limits or
 guarantees on resources, such as CPU and memory. To provide a consistent
 experience for sysadmins and users, we provide a standard way to set and
 discover these resource limits and guarantees, such as for memory and CPU.
@@ -230,16 +230,16 @@ that supports limits and guarantees is the `systemdspawner`.
 `c.Spawner.mem_limit`: A **limit** specifies the *maximum amount of memory*
 that may be allocated, though there is no promise that the maximum amount will
 be available. In supported spawners, you can set `c.Spawner.mem_limit` to
-limit the total amount of memory that a single-user notebook server can
+limit the total amount of memory that a single-user server can
 allocate. Attempting to use more memory than this limit will cause errors. The
-single-user notebook server can discover its own memory limit by looking at
+single-user server can discover its own memory limit by looking at
 the environment variable `MEM_LIMIT`, which is specified in absolute bytes.
 
 `c.Spawner.mem_guarantee`: Sometimes, a **guarantee** of a *minimum amount of
 memory* is desirable. In this case, you can set `c.Spawner.mem_guarantee` to
 to provide a guarantee that at minimum this much memory will always be
-available for the single-user notebook server to use. The environment variable
-`MEM_GUARANTEE` will also be set in the single-user notebook server.
+available for the single-user  server to use. The environment variable
+`MEM_GUARANTEE` will also be set in the single-user server.
 
 **The spawner's underlying system or cluster is responsible for enforcing these
 limits and providing these guarantees.** If these values are set to `None`, no
@@ -249,15 +249,15 @@ limits or guarantees are provided, and no environment values are set.
 
 `c.Spawner.cpu_limit`: In supported spawners, you can set
 `c.Spawner.cpu_limit` to limit the total number of cpu-cores that a
-single-user notebook server can use. These can be fractional - `0.5` means 50%
+single-user server can use. These can be fractional - `0.5` means 50%
 of one CPU core, `4.0` is 4 cpu-cores, etc. This value is also set in the
-single-user notebook server's environment variable `CPU_LIMIT`. The limit does
+single-user server's environment variable `CPU_LIMIT`. The limit does
 not claim that you will be able to use all the CPU up to your limit as other
 higher priority applications might be taking up CPU.
 
 `c.Spawner.cpu_guarantee`: You can set `c.Spawner.cpu_guarantee` to provide a
 guarantee for CPU usage. The environment variable `CPU_GUARANTEE` will be set
-in the single-user notebook server when a guarantee is being provided.
+in the single-user server when a guarantee is being provided.
 
 **The spawner's underlying system or cluster is responsible for enforcing these
 limits and providing these guarantees.** If these values are set to `None`, no

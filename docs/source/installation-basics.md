@@ -25,7 +25,7 @@ Prior to beginning installation, it's helpful to consider some of the following:
 
 - deployment system (bare metal, Docker)
 - Authentication (PAM, OAuth, etc.)
-- Spawner of singleuser notebook servers (Docker, Batch, etc.)
+- Spawner of single-user servers (Docker, Batch, etc.)
 - Services (nbgrader, etc.)
 - JupyterHub database (default SQLite; traditional RDBMS such as PostgreSQL,)
   MySQL, or other databases supported by [SQLAlchemy](http://www.sqlalchemy.org))

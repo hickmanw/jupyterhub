@@ -15,6 +15,6 @@ JUPYTERHUB_SINGLEUSER_APP = (
 
 App = import_item(JUPYTERHUB_SINGLEUSER_APP)
 
-SingleUserNotebookApp = make_singleuser_app(App)
+SingleUserApp = make_singleuser_app(App)
 
-main = SingleUserNotebookApp.launch_instance
+main = SingleUserApp.launch_instance

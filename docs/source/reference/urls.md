@@ -116,7 +116,7 @@ If the user's server is *not* running, this will be redirected to `/hub/user/:us
 ## `/hub/user/:username[/:servername]`
 
 This URL indicates a request for a user server that is not running
-(because `/user/...` would have been handled by the notebook server
+(because `/user/...` would have been handled by the single-user server
 if the specified server were running).
 
 Handling this URL is the most complicated condition in JupyterHub,

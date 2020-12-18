@@ -75,7 +75,7 @@ There are two environments where the ``jupyterhub`` package is installed:
    hub environment) that is shared by all users, one environment
    per user, or same environment as the hub environment. The hub
    launched the ``jupyterhub-singleuser`` command in this environment,
-   which in turn starts the notebook server.
+   which in turn starts the single-user server.
 
 You need to make sure the version of the ``jupyterhub`` package matches
 in both these environments. If you installed ``jupyterhub`` with pip,

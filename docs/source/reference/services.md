@@ -18,7 +18,7 @@ When working with JupyterHub, a **Service** is defined as a process that interac
 with the Hub's REST API. A Service may perform a specific
 action or task. For example, the following tasks can each be a unique Service:
 
-- shutting down individuals' single user notebook servers that have been idle
+- shutting down individuals' single-user servers that have been idle
   for some time
 - registering additional web servers which should use the Hub's authentication
   and be served behind the Hub's proxy.
@@ -78,7 +78,7 @@ environments, the Service can be registered as an
 ## Launching a Hub-Managed Service
 
 A Hub-Managed Service is characterized by its specified `command` for launching
-the Service. For example, a 'cull idle' notebook server task configured as a
+the Service. For example, a 'cull idle' single-user server task configured as a
 Hub-Managed Service would include:
 
 - the Service name,

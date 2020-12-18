@@ -40,10 +40,10 @@ groups. For example we can let any users in the `wheel` group be admin:
 c.PAMAuthenticator.admin_groups = {'wheel'}
 ```
 
-## Give admin access to other users' notebook servers (`admin_access`)
+## Give admin access to other users' single-user servers (`admin_access`)
 
 Since the default `JupyterHub.admin_access` setting is False, the admins
-do not have permission to log in to the single user notebook servers
+do not have permission to log in to the single-user servers
 owned by *other users*. If `JupyterHub.admin_access` is set to True,
 then admins have permission to log in *as other users* on their
 respective machines, for debugging. **As a courtesy, you should make

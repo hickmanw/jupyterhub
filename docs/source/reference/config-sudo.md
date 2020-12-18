@@ -9,7 +9,7 @@ Only do this if you are very sure you must.
 There are many Authenticators and Spawners available for JupyterHub. Some, such
 as DockerSpawner or OAuthenticator, do not need any elevated permissions. This
 document describes how to get the full default behavior of JupyterHub while
-running notebook servers as real system users on a shared system without 
+running single-user servers as real system users on a shared system without 
 running the Hub itself as root.
 
 Since JupyterHub needs to spawn processes as other users, the simplest way

@@ -22,7 +22,7 @@ Four subsystems make up JupyterHub:
 
 * a **Hub** (tornado process) that is the heart of JupyterHub
 * a **configurable http proxy** (node-http-proxy) that receives the requests from the client's browser
-* multiple **single-user Jupyter notebook servers** (Python/IPython/tornado) that are monitored by Spawners
+* multiple **Jupyter single-user servers** (Python/IPython/tornado) that are monitored by Spawners
 * an **authentication class** that manages how users can access the system
 
 

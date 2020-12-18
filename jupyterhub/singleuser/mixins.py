@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Mixins to regular notebook server to add JupyterHub auth.
+"""Mixins to server to add JupyterHub auth.
 
 Meant to be compatible with jupyter_server and classic notebook
 
@@ -129,18 +129,18 @@ class OAuthCallbackHandlerMixin(HubOAuthCallbackHandler):
 
 # register new hub related command-line aliases
 aliases = {
-    'user': 'SingleUserNotebookApp.user',
-    'group': 'SingleUserNotebookApp.group',
+    'user': 'SingleUserApp.user',
+    'group': 'SingleUserApp.group',
     'cookie-name': 'HubAuth.cookie_name',
-    'hub-prefix': 'SingleUserNotebookApp.hub_prefix',
-    'hub-host': 'SingleUserNotebookApp.hub_host',
-    'hub-api-url': 'SingleUserNotebookApp.hub_api_url',
-    'base-url': 'SingleUserNotebookApp.base_url',
+    'hub-prefix': 'SingleUserApp.hub_prefix',
+    'hub-host': 'SingleUserApp.hub_host',
+    'hub-api-url': 'SingleUserApp.hub_api_url',
+    'base-url': 'SingleUserApp.base_url',
 }
 flags = {
     'disable-user-config': (
-        {'SingleUserNotebookApp': {'disable_user_config': True}},
-        "Disable user-controlled configuration of the notebook server.",
+        {'SingleUserApp': {'disable_user_config': True}},
+        "Disable user-controlled configuration of the server.",
     )
 }
 
@@ -208,16 +208,8 @@ def _exclude_home(path_list):
             yield p
 
 
-class SingleUserNotebookAppMixin(Configurable):
-    """A Subclass of the regular NotebookApp that is aware of the parent multiuser context."""
-
-    description = dedent(
-        """
-    Single-user server for JupyterHub. Extends the Jupyter Notebook server.
-
-    Meant to be invoked by JupyterHub Spawners, not directly.
-    """
-    )
+class SingleUserAppMixin(Configurable):
+    """Mixin providing awareness of parent multiuser JupyterHub context."""
 
     examples = ""
     subcommands = {}
@@ -674,7 +666,7 @@ def detect_base_package(App):
 
 
 def make_singleuser_app(App):
-    """Make and return a singleuser notebook app
+    """Make and return a singleuser app
 
     given existing notebook or jupyter_server Application classes,
     mix-in jupyterhub auth.
@@ -726,7 +718,16 @@ def make_singleuser_app(App):
     merged_flags.update(empty_parent_app.flags or {})
     merged_flags.update(flags)
     # create mixed-in App class, bringing it all together
-    class SingleUserNotebookApp(SingleUserNotebookAppMixin, App):
+    class SingleUserApp(SingleUserAppMixin, App):
+        """Single-user server for JupyterHub."""
+
+        description = dedent(
+            """
+    Single-user server for JupyterHub.
+
+    Meant to be invoked by JupyterHub Spawners, not directly.
+    """
+        )
         aliases = merged_aliases
         flags = merged_flags
         classes = empty_parent_app.classes + [HubOAuth]
@@ -735,4 +736,4 @@ def make_singleuser_app(App):
         logout_handler_class = JupyterHubLogoutHandler
         oauth_callback_handler_class = OAuthCallbackHandler
 
-    return SingleUserNotebookApp
+    return SingleUserApp
